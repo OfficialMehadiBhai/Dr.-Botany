@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Department Notices — Dr. Botany</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{display:['Playfair Display','serif'],body:['DM Sans','sans-serif']}}}}</script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <div id="navbar-slot"></div>
+  <div id="sidebar-slot"></div>
 
+  <main class="page-wrapper">
+    <div class="container section">
+      <div class="mb-6">
+        <h1 class="font-display text-3xl font-bold" style="color:var(--text-primary)">Department Notices</h1>
+        <p style="font-size:14px;color:var(--text-dim);margin-top:4px">Stay updated with latest announcements</p>
+      </div>
+
+      <!-- ফিল্টার -->
+      <div class="flex flex-wrap gap-2 mb-6" id="noticeFilters"></div>
+
+      <!-- নোটিশ লিস্ট -->
+      <div class="space-y-4" id="noticesList"></div>
+    </div>
+    <div id="footer-slot"></div>
+  </main>
+
+  <div id="fab-slot"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/notices.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => NoticesPage.init());
+  </script>
+</body>
+</html>
