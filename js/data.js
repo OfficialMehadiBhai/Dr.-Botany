@@ -503,3 +503,41 @@ const DrBotanyData = {
     return index;
   }
 };
+/*
+=====================================================
+  Dr. Botany — LocalStorage Persistence
+  অ্যাডমিন প্যানেল থেকে করা পরিবর্তনগুলো সেভ রাখার জন্য
+=====================================================
+*/
+
+// প্রথমবার লোড হলে localStorage-এ ডিফল্ট ডেটা সেভ করা
+function initializeData() {
+  if (!localStorage.getItem('drbotany_books')) {
+    localStorage.setItem('drbotany_books', JSON.stringify(DrBotanyData.books));
+  }
+  if (!localStorage.getItem('drbotany_notices')) {
+    localStorage.setItem('drbotany_notices', JSON.stringify(DrBotanyData.notices));
+  }
+}
+
+// localStorage থেকে ডেটা লোড করা
+function loadData() {
+  const savedBooks = localStorage.getItem('drbotany_books');
+  if (savedBooks) DrBotanyData.books = JSON.parse(savedBooks);
+
+  const savedNotices = localStorage.getItem('drbotany_notices');
+  if (savedNotices) DrBotanyData.notices = JSON.parse(savedNotices);
+}
+
+// ডেটা সেভ করার ফাংশন (অ্যাডমিন প্যানেল থেকে কল হবে)
+function saveBooksData() {
+  localStorage.setItem('drbotany_books', JSON.stringify(DrBotanyData.books));
+}
+function saveNoticesData() {
+  localStorage.setItem('drbotany_notices', JSON.stringify(DrBotanyData.notices));
+}
+
+// অ্যাপ লোড হওয়ার সাথে সাথে ডেটা ইনিশিয়ালাইজ ও লোড হবে
+initializeData();
+loadData();
+
