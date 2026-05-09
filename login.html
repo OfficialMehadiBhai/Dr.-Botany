@@ -1,1 +1,112 @@
 
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Dr. Botany</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{display:['Playfair Display','serif'],body:['DM Sans','sans-serif']}}}}</script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <div class="auth-page">
+    <!-- ব্যাকগ্রাউন্ড -->
+    <div style="position:fixed;inset:0;z-index:0">
+      <div style="position:absolute;top:10%;left:10%;width:400px;height:400px;background:rgba(34,197,94,0.04);border-radius:50%;filter:blur(100px)"></div>
+      <div style="position:absolute;bottom:10%;right:10%;width:300px;height:300px;background:rgba(22,101,52,0.03);border-radius:50%;filter:blur(80px)"></div>
+    </div>
+
+    <div class="auth-card card-glass" style="position:relative;z-index:1">
+      <!-- লোগো -->
+      <div class="auth-logo">
+        <i class="fas fa-leaf"></i>
+      </div>
+      <h2 class="font-display text-center" style="font-size:24px;font-weight:700;color:var(--text-primary);margin-bottom:4px">Welcome Back</h2>
+      <p class="text-center" style="font-size:14px;color:var(--text-dim);margin-bottom:24px">Sign in to your Dr. Botany account</p>
+
+      <form onsubmit="handleLogin(event)">
+        <div class="input-group">
+          <label class="input-label">Email Address</label>
+          <input type="email" class="input" id="loginEmail" placeholder="your@email.com" required>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Password</label>
+          <input type="password" class="input" id="loginPassword" placeholder="Enter password" required minlength="6">
+        </div>
+        <div class="flex items-center justify-between" style="margin-bottom:16px">
+          <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-dim);cursor:pointer">
+            <input type="checkbox" style="accent-color:var(--green-500)">Remember me
+          </label>
+          <a href="#" onclick="handleForgot()" style="font-size:13px;color:var(--green-400)">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">
+          <i class="fas fa-sign-in-alt"></i>Sign In
+        </button>
+      </form>
+
+      <div class="divider">
+        <span class="divider-text">or</span>
+      </div>
+
+      <button onclick="handleGoogleLogin()" class="btn btn-secondary btn-block">
+        <i class="fab fa-google"></i>Continue with Google
+      </button>
+
+      <p class="text-center" style="font-size:14px;color:var(--text-dim);margin-top:24px">
+        Don't have an account?
+        <a href="register.html" style="color:var(--green-400);font-weight:600">Register</a>
+      </p>
+
+      <p class="text-center" style="margin-top:16px">
+        <a href="index.html" style="font-size:13px;color:var(--text-dim)"><i class="fas fa-arrow-left" style="margin-right:4px"></i>Back to Home</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/particles.js"></script>
+
+  <script>
+    /* যদি ইতিমধ্যে লগইন থাকে তাহলে প্রোফাইলে পাঠাও */
+    if (Auth.isLoggedIn()) {
+      window.location.href = 'profile.html';
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      Auth.login(email, password)
+        .then(user => {
+          Toast.success('Welcome back, ' + user.name + '!');
+          setTimeout(() => window.location.href = 'index.html', 800);
+        })
+        .catch(err => Toast.error(err.message));
+    }
+
+    function handleGoogleLogin() {
+      Auth.loginWithGoogle()
+        .then(user => {
+          Toast.success('Signed in with Google!');
+          setTimeout(() => window.location.href = 'index.html', 800);
+        });
+    }
+
+    function handleForgot() {
+      const email = document.getElementById('loginEmail').value;
+      if (!email) { Toast.warning('Enter your email first'); return; }
+      Auth.resetPassword(email)
+        .then(() => Toast.info('Password reset link sent to ' + email));
+    }
+  </script>
+</body>
+</html>
