@@ -1,1 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — Dr. Botany</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{display:['Playfair Display','serif'],body:['DM Sans','sans-serif']}}}}</script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div style="position:fixed;inset:0;z-index:0">
+      <div style="position:absolute;top:10%;right:15%;width:400px;height:400px;background:rgba(34,197,94,0.04);border-radius:50%;filter:blur(100px)"></div>
+      <div style="position:absolute;bottom:15%;left:10%;width:300px;height:300px;background:rgba(22,101,52,0.03);border-radius:50%;filter:blur(80px)"></div>
+    </div>
 
+    <div class="auth-card card-glass" style="position:relative;z-index:1;max-width:480px">
+      <div class="auth-logo">
+        <i class="fas fa-leaf"></i>
+      </div>
+      <h2 class="font-display text-center" style="font-size:24px;font-weight:700;color:var(--text-primary);margin-bottom:4px">Create Account</h2>
+      <p class="text-center" style="font-size:14px;color:var(--text-dim);margin-bottom:24px">Join Dr. Botany student community</p>
+
+      <form onsubmit="handleRegister(event)">
+        <div class="input-group">
+          <label class="input-label">Full Name</label>
+          <input type="text" class="input" id="regName" placeholder="Your full name" required>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Email Address</label>
+          <input type="email" class="input" id="regEmail" placeholder="your@email.com" required>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="input-group">
+            <label class="input-label">Student ID</label>
+            <input type="text" class="input" id="regStudentId" placeholder="BT-2024-001" required>
+          </div>
+          <div class="input-group">
+            <label class="input-label">Semester</label>
+            <select class="input" id="regSemester" required>
+              <option value="">Select</option>
+              <option>1st</option><option>2nd</option><option>3rd</option><option>4th</option>
+              <option>5th</option><option>6th</option><option>7th</option><option>8th</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Password</label>
+          <input type="password" class="input" id="regPassword" placeholder="Min 6 characters" required minlength="6">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg">
+          <i class="fas fa-user-plus"></i>Create Account
+        </button>
+      </form>
+
+      <p class="text-center" style="font-size:14px;color:var(--text-dim);margin-top:24px">
+        Already have an account?
+        <a href="login.html" style="color:var(--green-400);font-weight:600">Sign In</a>
+      </p>
+
+      <p class="text-center" style="margin-top:16px">
+        <a href="index.html" style="font-size:13px;color:var(--text-dim)"><i class="fas fa-arrow-left" style="margin-right:4px"></i>Back to Home</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/particles.js"></script>
+
+  <script>
+    if (Auth.isLoggedIn()) {
+      window.location.href = 'profile.html';
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const data = {
+        name: document.getElementById('regName').value,
+        email: document.getElementById('regEmail').value,
+        studentId: document.getElementById('regStudentId').value,
+        semester: document.getElementById('regSemester').value,
+        password: document.getElementById('regPassword').value
+      };
+
+      Auth.register(data)
+        .then(user => {
+          Toast.success('Account created successfully!');
+          setTimeout(() => window.location.href = 'index.html', 800);
+        })
+        .catch(err => Toast.error(err.message));
+    }
+  </script>
+</body>
+</html>
