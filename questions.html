@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Previous Questions — Dr. Botany</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{display:['Playfair Display','serif'],body:['DM Sans','sans-serif']}}}}</script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <div id="navbar-slot"></div>
+  <div id="sidebar-slot"></div>
 
+  <main class="page-wrapper">
+    <div class="container section">
+      <div class="mb-6">
+        <h1 class="font-display text-3xl font-bold" style="color:var(--text-primary)">Previous Questions</h1>
+        <p style="font-size:14px;color:var(--text-dim);margin-top:4px">Year-wise and semester-wise exam questions</p>
+      </div>
+
+      <!-- ফিল্টার -->
+      <div class="flex flex-col sm:flex-row gap-4 mb-6">
+        <select class="input flex-1" id="qSemester" onchange="QuestionsPage.render()">
+          <option value="all">All Semesters</option>
+          <option value="1st">1st Semester</option>
+          <option value="2nd">2nd Semester</option>
+          <option value="3rd">3rd Semester</option>
+          <option value="4th">4th Semester</option>
+          <option value="5th">5th Semester</option>
+          <option value="6th">6th Semester</option>
+          <option value="7th">7th Semester</option>
+          <option value="8th">8th Semester</option>
+        </select>
+        <select class="input flex-1" id="qYear" onchange="QuestionsPage.render()">
+          <option value="all">All Years</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="2019">2019</option>
+        </select>
+        <select class="input flex-1" id="qSubject" onchange="QuestionsPage.render()">
+          <option value="all">All Subjects</option>
+          <option value="cell-biology">Cell Biology</option>
+          <option value="genetics">Genetics</option>
+          <option value="phycology">Phycology</option>
+          <option value="physiology">Plant Physiology</option>
+          <option value="microbiology">Microbiology</option>
+          <option value="taxonomy">Taxonomy</option>
+          <option value="ecology">Ecology</option>
+          <option value="biochemistry">Biochemistry</option>
+        </select>
+      </div>
+
+      <!-- কোয়েশ্চেন লিস্ট -->
+      <div class="space-y-4" id="questionsList"></div>
+    </div>
+    <div id="footer-slot"></div>
+  </main>
+
+  <div id="fab-slot"></div>
+
+  <!-- PDF মডাল -->
+  <div class="modal-overlay" id="pdfModal">
+    <div class="modal-content" style="max-width:800px">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-display text-lg font-bold" id="pdfTitle" style="color:var(--text-primary)">PDF Viewer</h3>
+        <button onclick="closeModal('pdfModal')" class="btn-icon btn-ghost"><i class="fas fa-times"></i></button>
+      </div>
+      <div style="width:100%;height:60vh;border-radius:var(--radius-lg);background:var(--bg-primary);border:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center" id="pdfViewerContent"></div>
+      <div class="flex gap-3 mt-4">
+        <button class="btn btn-primary flex-1" id="pdfDownloadBtn"><i class="fas fa-download"></i>Download PDF</button>
+        <button class="btn btn-secondary" onclick="closeModal('pdfModal')"><i class="fas fa-times"></i>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/pdf-config.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/questions.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => QuestionsPage.init());
+    function openModal(id){document.getElementById(id).classList.add('show')}
+    function closeModal(id){document.getElementById(id).classList.remove('show')}
+  </script>
+</body>
+</html>
