@@ -1,1 +1,147 @@
 
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Botany — Botany Student Portal</title>
+  <meta name="description" content="University Botany Department Portal — Books, Notes, Questions, Suggestions & Resources">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { display: ['Playfair Display','serif'], body: ['DM Sans','sans-serif'] } } }
+    }
+  </script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+  <!-- Layout Slots -->
+  <div id="navbar-slot"></div>
+  <div id="sidebar-slot"></div>
+
+  <!-- Main Content -->
+  <main class="page-wrapper">
+    <div class="container">
+
+      <!-- ════════ HERO SECTION ════════ -->
+      <section class="hero" id="search">
+        <div class="hero-bg-shape hero-bg-shape-1 animate-float"></div>
+        <div class="hero-bg-shape hero-bg-shape-2 animate-float-delay"></div>
+
+        <div class="text-center max-w-3xl mx-auto relative z-10">
+          <div class="inline-flex items-center gap-2 card-glass rounded-full px-4 py-2 mb-6" style="font-size:12px;color:var(--green-400)">
+            <span class="w-2 h-2 rounded-full animate-pulse" style="background:var(--green-400)"></span>
+            Department of Botany — Session 2024-25
+          </div>
+
+          <h1 class="font-display font-black leading-tight mb-6" style="font-size:clamp(2.5rem,6vw,4.5rem)">
+            <span style="color:var(--text-primary)">Your Botany</span><br>
+            <span class="gradient-text">Student Portal</span>
+          </h1>
+
+          <p style="color:var(--text-muted);font-size:clamp(1rem,2vw,1.15rem);max-width:560px;margin:0 auto 32px;line-height:1.7">
+            Access books, lecture notes, previous questions, suggestions, and all academic resources in one place. Built for Botany students, by Botany students.
+          </p>
+
+          <!-- সার্চ বার -->
+          <div class="relative max-w-2xl mx-auto mb-10">
+            <div class="search-box">
+              <i class="fas fa-search search-icon"></i>
+              <input type="text" class="input" id="heroSearch" placeholder="Search books, notes, questions..." style="padding:16px 20px 16px 48px;font-size:16px;border-radius:var(--radius-xl)">
+            </div>
+            <div id="heroSearchResults" class="absolute top-full left-0 right-0 mt-2 glass-strong rounded-2xl overflow-hidden hidden z-50 max-h-80 overflow-y-auto"></div>
+          </div>
+
+          <!-- CTA বাটন -->
+          <div class="flex flex-wrap justify-center gap-3">
+            <a href="books.html" class="btn btn-primary btn-lg"><i class="fas fa-book"></i>Browse Books</a>
+            <a href="questions.html" class="btn btn-secondary btn-lg"><i class="fas fa-file-alt"></i>Previous Questions</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════ STATS ════════ -->
+      <section class="section">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="card-glass stat-card">
+            <div class="stat-number gradient-text" data-count="245">0</div>
+            <div style="font-size:13px;color:var(--text-dim);margin-top:4px">Books Available</div>
+          </div>
+          <div class="card-glass stat-card">
+            <div class="stat-number gradient-text" data-count="1200">0</div>
+            <div style="font-size:13px;color:var(--text-dim);margin-top:4px">PDF Notes</div>
+          </div>
+          <div class="card-glass stat-card">
+            <div class="stat-number gradient-text" data-count="380">0</div>
+            <div style="font-size:13px;color:var(--text-dim);margin-top:4px">Exam Questions</div>
+          </div>
+          <div class="card-glass stat-card">
+            <div class="stat-number gradient-text" data-count="520">0</div>
+            <div style="font-size:13px;color:var(--text-dim);margin-top:4px">Active Students</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════ QUICK ACCESS ════════ -->
+      <section class="section">
+        <h2 class="font-display text-2xl font-bold mb-6" style="color:var(--text-primary)">Quick Access</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4" id="quickAccessGrid"></div>
+      </section>
+
+      <!-- ════════ FEATURED BOOKS ════════ -->
+      <section class="section">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="font-display text-2xl font-bold" style="color:var(--text-primary)">Featured Books</h2>
+          <a href="books.html" style="font-size:14px;color:var(--green-400)">View All <i class="fas fa-arrow-right" style="margin-left:4px"></i></a>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5" id="featuredGrid"></div>
+      </section>
+
+      <!-- ════════ LATEST UPLOADS ════════ -->
+      <section class="section">
+        <h2 class="font-display text-2xl font-bold mb-6" style="color:var(--text-primary)">Latest Uploads</h2>
+        <div class="space-y-3" id="latestUploads"></div>
+      </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-slot"></div>
+  </main>
+
+  <!-- FAB -->
+  <div id="fab-slot"></div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/pdf-config.js"></script>
+  <script src="js/toast.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // হোমপেজ ইনিশিয়ালাইজ
+    document.addEventListener('DOMContentLoaded', () => {
+      Home.render();
+      Search.init('heroSearch', 'heroSearchResults');
+    });
+  </script>
+</body>
+</html>
